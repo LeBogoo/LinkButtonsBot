@@ -2,6 +2,7 @@ import { SlashCommandBuilder } from "@discordjs/builders";
 import axios from "axios";
 import { PermissionFlagsBits } from "discord-api-types/v10";
 import { ActionRowBuilder, ButtonBuilder, ButtonStyle, CommandInteraction } from "discord.js";
+import { logger } from "..";
 
 export default {
     builder: new SlashCommandBuilder()
@@ -28,10 +29,13 @@ export default {
         const buttonTextOption = interaction.options.get("button-text", true);
         const urlOption = interaction.options.get("button-link", true);
 
+        
+        
         try {
-            const validUrl = await axios.get(urlOption.value as string);
+            interaction.reply({ephemeral:true, content:"Checking URL..."})
+            const validUrl = await axios.get(urlOption.value as string, {timeout: 5000});
             if (validUrl.status != 200) throw new Error("Not ok");
-
+            
             const row = new ActionRowBuilder<ButtonBuilder>().addComponents(
                 new ButtonBuilder()
                     .setLabel(buttonTextOption.value as string)
@@ -40,18 +44,19 @@ export default {
             );
 
             await interaction.channel!.send({ content: messageTextOption.value as string, components: [row] });
-            return {
-                ephemeral: true,
+            
+                logger.log(`LinkButton created: ${messageTextOption.value} |  ${buttonTextOption.value} | ${urlOption.value}`)
+
+            interaction.editReply({
                 content: "Link button created!",
-            };
+            });
         } catch (err) {
             // @ts-ignore
-            console.log(err.message);
+            logger.log(err.message);
 
-            return {
-                ephemeral: true,
-                content: "The url is invalid. Make sure the destination is reachable!",
-            };
+            interaction.editReply({
+                content: "The URL is invalid. Make sure the destination is reachable!",
+            });
         }
     },
 };
