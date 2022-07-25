@@ -22,7 +22,7 @@ export class Logger {
         return logFileName;
     }
 
-    log(...data): void {
+    log(...data:unknown[]): void {
         const logData = data.length == 1 ? data[0] : data;
         console.log(logData);
         appendFileSync(
