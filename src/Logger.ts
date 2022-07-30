@@ -12,14 +12,18 @@ export class Logger {
     }
 
     private getNewLogfileName(): string {
-        let counter = 1;
+        let counter = 0;
         const now = new Date();
-        let logFileName = `log_${now.getFullYear()}-${now.getMonth()}-${now.getDate()}.log`;
-        while (existsSync(`${this.logDir}/${logFileName}`)) {
-            logFileName = `log_${now.getFullYear()}-${now.getMonth()}-${now.getDate()}-${counter}.log`;
+        const year = now.getFullYear();
+        const month = now.getMonth().toString().padStart(2, "0");
+        const day = now.getDate().toString().padStart(2, "0");
+
+        const logFileName = `${year}-${month}-${day}`;
+
+        while (existsSync(`${this.logDir}/${logFileName}-${counter}.log`)) {
             counter++;
         }
-        return logFileName;
+        return `${logFileName}-${counter}.log`;
     }
 
     log(...data: unknown[]): void {
