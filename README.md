@@ -35,6 +35,13 @@ $ cd src
 $ ts-node index.ts
 ```
 
+Don't forget to register all slash commands globally:
+
+```bash
+$ cd src
+$ node registerGlobalCommands.ts
+```
+
 > Don't forget to create a .env file inside your `src` directory! <br/>
 > Look at the .env_example file!
 
@@ -55,6 +62,13 @@ After that you can run the bot:
 ```bash
 $ cd dist
 $ node index.js
+```
+
+Don't forget to register all slash commands globally:
+
+```bash
+$ cd dist
+$ node registerGlobalCommands.js
 ```
 
 > Don't forget to create a .env file inside your `dist` directory! <br/>
