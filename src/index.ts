@@ -1,10 +1,13 @@
 import { Client, GatewayIntentBits } from "discord.js";
 import * as dotenv from "dotenv";
 import { readdirSync } from "fs";
+import updateHandler from "./handlers/updateHandler";
 import { Logger } from "./Logger";
 dotenv.config();
 
 export const logger = new Logger("../logs");
+
+if (process.env.ENABLE_AUTO_UPDATE == "true") updateHandler();
 
 const client = new Client({
     intents: [GatewayIntentBits.Guilds],
