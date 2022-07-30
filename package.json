@@ -9,8 +9,12 @@
     "description": "Bot that creates messages with url/link buttons.",
     "main": "index.js",
     "scripts": {
-        "test": "echo \"Error: no test specified\" && exit 1"
+        "test": "echo \"Error: no test specified\" && exit 1",
+        "format": "prettier --write ."
     },
     "author": "LeBogo",
-    "license": "ISC"
+    "license": "ISC",
+    "devDependencies": {
+        "prettier-plugin-organize-imports": "^3.0.0"
+    }
 }
