@@ -77,7 +77,7 @@ export default {
         const {
             trigger,
             data: [channelId, messageId],
-        }: { trigger: string; data } = JSON.parse(interaction.customId);
+        }: { trigger: string; data: [string, string] } = JSON.parse(interaction.customId);
 
         const messageChannel: TextChannel | undefined = interaction.client.channels.cache.find(
             (channel) => channel.id == channelId

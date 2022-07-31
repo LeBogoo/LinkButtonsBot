@@ -3,10 +3,7 @@ import { ModalSubmitInteraction } from "discord.js";
 import { isCommand } from "./commandHandler";
 
 export default async function (interaction: ModalSubmitInteraction) {
-    const {
-        trigger,
-        data: [channelId, messageId],
-    }: { trigger: string; data } = JSON.parse(interaction.customId);
+    const { trigger }: { trigger: string } = JSON.parse(interaction.customId);
 
     if (isCommand(trigger)) {
         const command = (await import(`../commands/${trigger}.ts`)).default;
